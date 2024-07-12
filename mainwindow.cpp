@@ -51,7 +51,6 @@ void MainWindow::TimePorcessReceiveData(QByteArray data)
     counterPck++;
     QDateTime rcvDateTime;
 
-
         memcpy(&rcvDateTime, data.data(), sizeof(rcvDateTime));
 
          if(counterPck % 20 == 0){
@@ -69,8 +68,6 @@ void MainWindow::strPorcessReceiveData(QByteArray data, QNetworkDatagram datagra
     counterPck++;
     QString str;
 
-
-
          memcpy(&str, data.data(), sizeof(str));
 
          if(counterPck % 20 == 0){
@@ -82,9 +79,6 @@ void MainWindow::strPorcessReceiveData(QByteArray data, QNetworkDatagram datagra
                      "размер сообщения " + QString::number(str.size()) );
 
 }
-
-
-
 
 void MainWindow::on_pb_stop_clicked()
 {

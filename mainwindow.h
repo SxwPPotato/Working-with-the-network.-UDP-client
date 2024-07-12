@@ -39,7 +39,6 @@ private:
 
     uint32_t counterPck = 0;
     QUdpSocket* text;
-    //QNetworkDatagram qnet;
 
 
 

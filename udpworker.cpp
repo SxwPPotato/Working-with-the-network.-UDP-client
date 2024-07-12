@@ -14,7 +14,7 @@ void UDPworker::TimeInitSocket( )
 
     timeserviceUdpSocket->bind(QHostAddress::LocalHost, BIND_PORT);
 
-    connect(this,  &UDPworker::sig1, this, [this]{time_readPendingDatagrams();});
+    connect(timeserviceUdpSocket,  &QUdpSocket::readyRead, this, &UDPworker::time_readPendingDatagrams);
 
 }
 
@@ -23,9 +23,9 @@ void UDPworker::strInitSocket( )
 
     strserviceUdpSocket = new QUdpSocket(this);
 
-    strserviceUdpSocket->bind(QHostAddress::LocalHost, BIND_PORT);
+    strserviceUdpSocket->bind(QHostAddress::LocalHost, BIND_PORT2);
 
-    connect(this, &UDPworker::sig2, this,[this]{str_readPendingDatagrams();});
+    connect(strserviceUdpSocket,  &QUdpSocket::readyRead, this, &UDPworker::str_readPendingDatagrams);
 
 }
 
@@ -56,13 +56,11 @@ void UDPworker::strReadDatagram(QNetworkDatagram datagram)
 void UDPworker::SendTimeDatagram(QByteArray data)
 {
     timeserviceUdpSocket->writeDatagram(data, QHostAddress::LocalHost, BIND_PORT);
-    emit sig1();
 }
 
 void UDPworker::SendStrDatagram(QByteArray datas)
 {
-    strserviceUdpSocket->writeDatagram(datas, QHostAddress::LocalHost, BIND_PORT);
-    emit sig2();
+    strserviceUdpSocket->writeDatagram(datas, QHostAddress::LocalHost, BIND_PORT2);
 }
 
 void UDPworker::time_readPendingDatagrams( void )
