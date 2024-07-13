@@ -6,6 +6,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->pb_stop->setEnabled(false);
 
     udpWorker = new UDPworker(this);
     udpWorker->TimeInitSocket();
@@ -44,6 +45,8 @@ MainWindow::~MainWindow()
 void MainWindow::on_pb_start_clicked()
 {
     timer->start(TIMER_DELAY);
+    ui->pb_start->setEnabled(false);
+    ui->pb_stop->setEnabled(true);
 }
 
 void MainWindow::TimePorcessReceiveData(QByteArray data)
@@ -83,11 +86,14 @@ void MainWindow::strPorcessReceiveData(QByteArray data, QNetworkDatagram datagra
 void MainWindow::on_pb_stop_clicked()
 {
     timer->stop();
+    ui->pb_stop->setEnabled(false);
+    ui->pb_start->setEnabled(true);
 }
 
 
 void MainWindow::on_pb_datagram_clicked()
 {
+    ui->te_result->clear();
 
 
     QString str = ui->te->toPlainText();
