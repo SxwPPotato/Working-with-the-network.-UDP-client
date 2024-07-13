@@ -103,5 +103,6 @@ void MainWindow::on_pb_datagram_clicked()
     memcpy(datastr.data(), &str, sizeof(str));
 
     udpWorker2->SendStrDatagram(datastr);
+    ui->te->clear();
 }
 
